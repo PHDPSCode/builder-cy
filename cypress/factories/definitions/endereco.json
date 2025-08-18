@@ -1,0 +1,12 @@
+{
+  "logradouro": "Rua Aeroporto de Montes Claros",
+  "cep": "59149-366",
+  "bairro": "Emaús",
+  "uf": {
+    "id": 20,
+    "sigla": "RN"
+  },
+  "estado": "Rio Grande do Norte",
+  "idUF": 20,
+  "cidade": "Parnamirim"
+}
