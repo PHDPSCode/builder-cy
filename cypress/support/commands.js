@@ -1,25 +1,29 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import './utils'
+
+const { SELECTORS } = require('../support/utils');
+
+Cypress.Commands.add('acessarBuilder', () => {
+  cy.clearCookies();
+  cy.intercept('*login/').as('logar');
+  cy.visit('/');
+  cy.wait('@logar');
+});
+
+Cypress.Commands.add('realizarLogin', (
+  perfil = 'administrador',
+) => {
+  cy.acessarBuilder();
+  cy.clicarBotaoLogar();
+});
+
+Cypress.Commands.add('clicarBotaoAcessar', () => {
+  cy.get('.btn-primary').contains('Acessar').click();
+});
+
+Cypress.Commands.add('preencherUsuarioSenha', (
+    user = 'admin',
+    password = 'Senha@123'
+) => {
+  cy.get(SELECTORS.userInput).type(`{selectall}{del}${user}`);
+  cy.get(SELECTORS.passwordInput).type(`{selectall}{del}${password}`);
+});
